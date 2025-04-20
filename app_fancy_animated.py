@@ -150,14 +150,12 @@ elif st.session_state.page == "done":
     st.write("Thank you again for participating!")
 
 components.html("""
-<!-- Replace with your GA tag -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-X"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'UA-XXXXXXX-X');
+gtag('config', 'G-8QCB98258G');
 </script>
--->
 """, height=0)
+
