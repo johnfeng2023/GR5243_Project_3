@@ -154,21 +154,15 @@ elif st.session_state.page == "done":
 
 # Google Analytics tracking snippet (embed directly)
 components.html("""
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86NPLV6WER"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-86NPLV6WER');
-
-  // Force a page_view to trigger realtime user count
-  gtag('event', 'page_view', {
-    page_title: 'Streamlit Quiz App',
-    page_path: window.location.pathname
-  });
 </script>
-""", height=1)
+""", height=0)
 
 
 # components.html("""
