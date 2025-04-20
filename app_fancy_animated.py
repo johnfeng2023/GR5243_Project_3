@@ -9,6 +9,11 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+# Include Google Analytics tracking code
+with open("google_analytics.html", "r") as f:
+    html_code = f.read()
+    components.html(html_code, height=0)
+
 def append_to_google_sheet(row_dict):
     scope = [
         "https://spreadsheets.google.com/feeds",
@@ -23,16 +28,6 @@ def append_to_google_sheet(row_dict):
 
 st.set_page_config(page_title="Trivia Quiz", layout="centered")
 
-# Google Analytics tracking
-components.html("""
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8QCB98258G');
-</script>
-""", height=1, width=1)
 
 # Animated background setup
 page_bg_img = """
