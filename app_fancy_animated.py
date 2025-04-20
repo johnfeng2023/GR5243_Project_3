@@ -9,10 +9,7 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# Include Google Analytics tracking code
-with open("google_analytics.html", "r") as f:
-    html_code = f.read()
-    components.html(html_code, height=0)
+
 
 def append_to_google_sheet(row_dict):
     scope = [
@@ -154,6 +151,12 @@ elif st.session_state.page == "feedback":
 elif st.session_state.page == "done":
     st.title("✅ Submission Complete")
     st.write("Thank you again for participating!")
+
+
+# Include Google Analytics tracking code
+with open("google_analytics.html", "r") as f:
+    html_code = f.read()
+    components.html(html_code, height=0)
 
 # components.html("""
 # <!-- Google tag (gtag.js) -->
