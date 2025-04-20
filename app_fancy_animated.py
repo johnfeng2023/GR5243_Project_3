@@ -23,6 +23,17 @@ def append_to_google_sheet(row_dict):
 
 st.set_page_config(page_title="Trivia Quiz", layout="centered")
 
+# Google Analytics tracking
+components.html("""
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8QCB98258G');
+</script>
+""", height=1, width=1)
+
 # Animated background setup
 page_bg_img = """
 <style>
@@ -149,14 +160,14 @@ elif st.session_state.page == "done":
     st.title("✅ Submission Complete")
     st.write("Thank you again for participating!")
 
-components.html("""
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+# components.html("""
+# <!-- Google tag (gtag.js) -->
+# <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+# <script>
+#   window.dataLayer = window.dataLayer || [];
+#   function gtag(){dataLayer.push(arguments);}
+#   gtag('js', new Date());
 
-  gtag('config', 'G-8QCB98258G');
-</script>
-""", height=1, width=1)
+#   gtag('config', 'G-8QCB98258G');
+# </script>
+# """, height=1, width=1)
