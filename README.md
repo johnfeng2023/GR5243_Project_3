@@ -2,6 +2,7 @@
 A simple Streamlit app to run a 2×2 factorial A/B experiment testing how tone and framing affect user reasoning and feedback.
 
 Deployed website link: [https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app](https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app)
+
 Experiement result: [https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing)
 
 ## 🧪 Research Overview
@@ -20,10 +21,5 @@ Experiement result: [https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4
 - [Streamlit](https://streamlit.io) for the frontend
 - Python for logic and data handling
 - Google Sheets API for storing participant results
+- Google Analtyics for tracking background event
 
-## 🚀 Deployment Instructions (for Streamlit Cloud)
-
-1. Fork or clone this repo
-2. Set up a Google Sheet and enable the Sheets API
-3. Add your API credentials to Streamlit secrets (`st.secrets`)
-4. Deploy the app via [Streamlit Cloud](https://streamlit.io/cloud)
