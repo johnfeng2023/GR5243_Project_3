@@ -44,7 +44,8 @@ TRICKY_QUESTIONS = [
     {"question": "What color is the sun most likely at noon?", "options": ["White", "Yellow", "Red"], "answer": "White"},
     
     # 🎯 Attention Checks (3)
-    {"question": "Which road sign indicates a school zone?", "options": ["Sign A", "Sign B", "Sign C"], "answer": "Sign B", "image": True},
+    {"question": "Which of the following is spelled incorrectly?", "options": ["Accommodate", "Definately", "Occasionally", "Recommend"], "answer": "Definately"}
+
 
     # 🔢 Math + Visual/Diagram Reasoning (10)
     {"question": "A triangle has sides 5, 5, and 6. Which angle is largest?", "options": ["Angle A", "Angle B", "Angle C"], "answer": "Angle C", "explain": True},
@@ -59,7 +60,8 @@ TRICKY_QUESTIONS = [
     {"question": "Which direction is the shadow pointing if the sun is in the east?", "options": ["West", "North", "East"], "answer": "West"},
     
     # 🎯 Attention Checks (3)
-    {"question": "Which of these figures will complete the symmetry?", "options": ["Figure A", "Figure B", "Figure C"], "answer": "Figure A", "image": True},
+    {"question": "Choose the **second** number that is a multiple of 3.", "options": ["4", "6", "9", "11"], "answer": "9"}
+
 
     # 🔍 Logical Reasoning (7)
     {"question": "If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops Lazzies?", "options": ["Yes", "No", "Can't tell"], "answer": "Yes", "explain": True},
@@ -71,7 +73,7 @@ TRICKY_QUESTIONS = [
     {"question": "A man has 4 sons. Each son has a sister. How many children does he have?", "options": ["5", "8", "9"], "answer": "5"},
 
     # 🎯 Attention Checks (3)
-    {"question": "In the grid, which path reaches the goal with the fewest turns?", "options": ["Path A", "Path B", "Path C"], "answer": "Path C", "image": True}
+    {"question": "If the third option is 'True', select the first. Otherwise, select the fourth.", "options": ["Option A", "Option B", "True", "Option D"], "answer": "Option A"}
 ]
 
 LIKERT_QUESTIONS = [
