@@ -2,6 +2,7 @@
 A simple Streamlit app to run a 2×2 factorial A/B experiment testing how tone and framing affect user reasoning and feedback.
 
 Deployed website link: [https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app](https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app)
+Experiement result: [https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing)
 
 ## 🧪 Research Overview
 
