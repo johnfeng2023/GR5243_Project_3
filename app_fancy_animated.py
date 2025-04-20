@@ -152,10 +152,9 @@ elif st.session_state.page == "done":
 components.html("""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-8QCB98258G');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8QCB98258G');
 </script>
-""", height=0)
-
+""", height=1, width=1)
