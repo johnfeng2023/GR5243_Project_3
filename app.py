@@ -5,6 +5,7 @@ import random
 
 # Show friendly-only bottom-right illustration
 import base64
+<<<<<<< HEAD
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -20,6 +21,8 @@ def append_to_google_sheet(row_dict):
     sheet = client.open("Experiment Results").worksheet("responses")
     sheet.append_row(list(row_dict.values()))
 
+=======
+>>>>>>> ivy-update
 
 def get_image_base64(file_path):
     with open(file_path, "rb") as img_file:
@@ -30,6 +33,7 @@ def get_image_base64(file_path):
 # Page config
 st.set_page_config(page_title="Quiz", layout="centered")
 
+<<<<<<< HEAD
 import streamlit.components.v1 as components
 
 components.html("""
@@ -48,6 +52,8 @@ components.html("""
 </script>
 """, height=0)
 
+=======
+>>>>>>> ivy-update
 
 # Gradient background fallback with improved layout (for "Friendly")
 page_bg = """
@@ -77,7 +83,12 @@ TRICKY_QUESTIONS = [
     {"question": "What color is the sun most likely at noon?", "options": ["White", "Yellow", "Red"], "answer": "White"},
     
     # 🎯 Attention Checks (3)
+<<<<<<< HEAD
     {"question": "Which road sign indicates a school zone?", "options": ["Sign A", "Sign B", "Sign C"], "answer": "Sign B", "image": True},
+=======
+    {"question": "Which of the following is spelled incorrectly?", "options": ["Accommodate", "Definately", "Occasionally", "Recommend"], "answer": "Definately"}
+
+>>>>>>> ivy-update
 
     # 🔢 Math + Visual/Diagram Reasoning (10)
     {"question": "A triangle has sides 5, 5, and 6. Which angle is largest?", "options": ["Angle A", "Angle B", "Angle C"], "answer": "Angle C", "explain": True},
@@ -92,7 +103,12 @@ TRICKY_QUESTIONS = [
     {"question": "Which direction is the shadow pointing if the sun is in the east?", "options": ["West", "North", "East"], "answer": "West"},
     
     # 🎯 Attention Checks (3)
+<<<<<<< HEAD
     {"question": "Which of these figures will complete the symmetry?", "options": ["Figure A", "Figure B", "Figure C"], "answer": "Figure A", "image": True},
+=======
+    {"question": "Choose the **second** number that is a multiple of 3.", "options": ["4", "6", "9", "11"], "answer": "9"}
+
+>>>>>>> ivy-update
 
     # 🔍 Logical Reasoning (7)
     {"question": "If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops Lazzies?", "options": ["Yes", "No", "Can't tell"], "answer": "Yes", "explain": True},
@@ -104,7 +120,11 @@ TRICKY_QUESTIONS = [
     {"question": "A man has 4 sons. Each son has a sister. How many children does he have?", "options": ["5", "8", "9"], "answer": "5"},
 
     # 🎯 Attention Checks (3)
+<<<<<<< HEAD
     {"question": "In the grid, which path reaches the goal with the fewest turns?", "options": ["Path A", "Path B", "Path C"], "answer": "Path C", "image": True}
+=======
+    {"question": "If the third option is 'True', select the first. Otherwise, select the fourth.", "options": ["Option A", "Option B", "True", "Option D"], "answer": "Option A"}
+>>>>>>> ivy-update
 ]
 
 LIKERT_QUESTIONS = [
@@ -162,6 +182,7 @@ if st.session_state.page == "welcome":
     if st.button("Start Quiz"):
         st.session_state.page = "quiz"
         st.session_state.start_time = time.time()
+<<<<<<< HEAD
         components.html(f"""
         <script>
         gtag('event', 'start_quiz', {{
@@ -169,6 +190,8 @@ if st.session_state.page == "welcome":
         }});
         </script>
         """, height=0)
+=======
+>>>>>>> ivy-update
 
 
 # Quiz page
@@ -224,6 +247,10 @@ elif st.session_state.page == "quiz":
             key=f"explain_{i}"
         )
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ivy-update
     if st.button("Submit and Continue"):
         if answer == "-- Select an answer --" or (q.get("explain") and explanation.strip() == ""):
             st.warning("⚠️ Please complete the question before continuing.")
@@ -232,6 +259,7 @@ elif st.session_state.page == "quiz":
             if answer == q["answer"]:
                 st.session_state.correct_count += 1
 
+<<<<<<< HEAD
             # Google Analytics event tracking for quiz answer
             components.html(f"""
             <script>
@@ -243,13 +271,18 @@ elif st.session_state.page == "quiz":
             </script>
             """, height=0)
 
+=======
+>>>>>>> ivy-update
             st.session_state.question_index += 1
             if st.session_state.question_index >= 15:
                 st.session_state.page = "transition"
 
             st.rerun()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ivy-update
     progress = (i + 1) / 15
     # Friendly 风格：用 emoji 气泡进度条
     if st.session_state.style == "A":
@@ -346,6 +379,7 @@ elif st.session_state.page == "likert":
             st.error('⚠️ Please select your response before continuing.')
         else:
             st.session_state.likert_responses.append((LIKERT_QUESTIONS[j], response))
+<<<<<<< HEAD
 
             components.html(f"""
                     <script>
@@ -358,6 +392,10 @@ elif st.session_state.page == "likert":
                     """, height=0)
 
             st.session_state.likert_index += 1
+=======
+            st.session_state.likert_index += 1
+
+>>>>>>> ivy-update
             if st.session_state.likert_index >= len(LIKERT_QUESTIONS):
                 st.session_state.page = "result"
             st.rerun()
@@ -378,6 +416,7 @@ elif st.session_state.page == "result":
     st.balloons()
     st.success("🎉 Quiz Completed!")
 
+<<<<<<< HEAD
     from datetime import datetime
     import pandas as pd
 
@@ -417,3 +456,5 @@ elif st.session_state.page == "result":
 
 
 
+=======
+>>>>>>> ivy-update
