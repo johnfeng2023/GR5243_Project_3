@@ -30,6 +30,24 @@ def get_image_base64(file_path):
 # Page config
 st.set_page_config(page_title="Quiz", layout="centered")
 
+import streamlit.components.v1 as components
+
+components.html("""
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Main page view event
+  gtag('config', 'G-8QCB98258G', {
+    'page_title': 'Streamlit Quiz App',
+    'page_path': window.location.pathname
+  });
+</script>
+""", height=0)
+
 
 # Gradient background fallback with improved layout (for "Friendly")
 page_bg = """
@@ -144,6 +162,13 @@ if st.session_state.page == "welcome":
     if st.button("Start Quiz"):
         st.session_state.page = "quiz"
         st.session_state.start_time = time.time()
+        components.html(f"""
+        <script>
+        gtag('event', 'start_quiz', {{
+            'style': '{st.session_state.style}'
+        }});
+        </script>
+        """, height=0)
 
 
 # Quiz page
@@ -199,7 +224,6 @@ elif st.session_state.page == "quiz":
             key=f"explain_{i}"
         )
 
-
     if st.button("Submit and Continue"):
         if answer == "-- Select an answer --" or (q.get("explain") and explanation.strip() == ""):
             st.warning("⚠️ Please complete the question before continuing.")
@@ -208,11 +232,23 @@ elif st.session_state.page == "quiz":
             if answer == q["answer"]:
                 st.session_state.correct_count += 1
 
+            # Google Analytics event tracking for quiz answer
+            components.html(f"""
+            <script>
+            gtag('event', 'submit_answer', {{
+                question_number: {i+1},
+                is_correct: {str(answer == q["answer"]).lower()},
+                answer_text: '{answer}'
+            }});
+            </script>
+            """, height=0)
+
             st.session_state.question_index += 1
             if st.session_state.question_index >= 15:
                 st.session_state.page = "transition"
 
             st.rerun()
+
 
     progress = (i + 1) / 15
     # Friendly 风格：用 emoji 气泡进度条
@@ -310,8 +346,18 @@ elif st.session_state.page == "likert":
             st.error('⚠️ Please select your response before continuing.')
         else:
             st.session_state.likert_responses.append((LIKERT_QUESTIONS[j], response))
-            st.session_state.likert_index += 1
 
+            components.html(f"""
+                    <script>
+                    gtag('event', 'submit_likert_response', {{
+                        question_number: {j+1},
+                        question_text: '{LIKERT_QUESTIONS[j]}',
+                        response: '{response}'
+                    }});
+                    </script>
+                    """, height=0)
+
+            st.session_state.likert_index += 1
             if st.session_state.likert_index >= len(LIKERT_QUESTIONS):
                 st.session_state.page = "result"
             st.rerun()
@@ -353,6 +399,17 @@ elif st.session_state.page == "result":
 
         try:
             append_to_google_sheet(result)
+
+            components.html(f"""
+            <script>
+            gtag('event', 'quiz_complete', {{
+                correct_count: {st.session_state.correct_count},
+                duration_sec: {duration},
+                style: '{st.session_state.style}'
+            }});
+            </script>
+            """, height=0)
+
             st.session_state.submitted = True
             st.success("📊 Results have been recorded to Google Sheets.")
         except Exception as e:
