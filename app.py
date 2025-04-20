@@ -78,7 +78,7 @@ TRICKY_QUESTIONS = [
     
     # 🎯 Attention Checks (3)
 
-    {"question": "Which of the following is spelled incorrectly?", "options": ["Accommodate", "Definately", "Occasionally", "Recommend"], "answer": "Definately"}
+    {"question": "Which of the following is spelled incorrectly?", "options": ["Accommodate", "Definately", "Occasionally", "Recommend"], "answer": "Definately"},
 
 
     # 🔢 Math + Visual/Diagram Reasoning (10)
@@ -95,7 +95,7 @@ TRICKY_QUESTIONS = [
     
     # 🎯 Attention Checks (3)
 
-    {"question": "Choose the **second** number that is a multiple of 3.", "options": ["4", "6", "9", "11"], "answer": "9"}
+    {"question": "Choose the **second** number that is a multiple of 3.", "options": ["4", "6", "9", "11"], "answer": "9"},
 
 
 
