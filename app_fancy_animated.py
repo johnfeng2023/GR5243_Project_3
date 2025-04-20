@@ -1,4 +1,3 @@
-
 import streamlit as st
 import time
 import pandas as pd
@@ -9,6 +8,21 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+# Google Analytics setup
+components.html("""
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8QCB98258G');
+  gtag('event', 'page_view', {
+    page_title: 'Streamlit Quiz App',
+    page_path: window.location.pathname
+  });
+</script>
+""", height=0)
 
 def append_to_google_sheet(row_dict):
     scope = [
@@ -21,11 +35,9 @@ def append_to_google_sheet(row_dict):
     sheet = client.open("Experiment Results").worksheet("responses")
     sheet.append_row(list(row_dict.values()))
 
-
 st.set_page_config(page_title="Trivia Quiz", layout="centered")
 
-
-# Animated background setup
+# Background
 page_bg_img = """
 <style>
 body {
@@ -36,8 +48,6 @@ background-color: rgba(255, 255, 255, 0.0);
 }
 </style>
 """
-
-
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 combinations = [("Formal", "Academic"), ("Formal", "Fun"),
@@ -49,6 +59,7 @@ if "assigned_group" not in st.session_state:
     st.session_state.answers = []
     st.session_state.correct_count = 0
     st.session_state.question_index = 0
+    st.session_state.start_time = time.time()
 
 greeting, framing = st.session_state.assigned_group
 
@@ -84,6 +95,14 @@ if st.session_state.page == "welcome":
     if st.button("Start Quiz"):
         st.session_state.page = "quiz"
         st.session_state.start_time = time.time()
+        components.html("""
+        <script>
+          gtag('event', 'start_quiz', {
+            event_category: 'engagement',
+            event_label: 'User clicked start'
+          });
+        </script>
+        """, height=0)
 
 elif st.session_state.page == "quiz":
     i = st.session_state.question_index
@@ -137,11 +156,23 @@ elif st.session_state.page == "feedback":
         for q, s in likert_scores.items():
             result[q] = s
 
-        # Oriignal method with csv saving on local
-        # df = pd.DataFrame([result])
-        # df.to_csv("experiment_results.csv", mode="a", index=False, header=False)
-
         append_to_google_sheet(result)
+
+        components.html(f"""
+        <script>
+          gtag('event', 'submit_feedback', {{
+            event_category: 'feedback',
+            value: {duration},
+            event_label: 'Feedback Submitted'
+          }});
+
+          gtag('event', 'session_duration', {{
+            event_category: 'timing',
+            value: {duration},
+            event_label: 'Time on app (s)'
+          }});
+        </script>
+        """, height=0)
 
         st.success("🎉 Thank you! Your responses have been saved.")
         st.balloons()
@@ -150,29 +181,3 @@ elif st.session_state.page == "feedback":
 elif st.session_state.page == "done":
     st.title("✅ Submission Complete")
     st.write("Thank you again for participating!")
-
-
-# Google Analytics tracking snippet (embed directly)
-components.html("""
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-86NPLV6WER"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-86NPLV6WER');
-</script>
-""", height=0)
-
-
-# components.html("""
-# <!-- Google tag (gtag.js) -->
-# <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
-# <script>
-#   window.dataLayer = window.dataLayer || [];
-#   function gtag(){dataLayer.push(arguments);}
-#   gtag('js', new Date());
-
-#   gtag('config', 'G-8QCB98258G');
-# </script>
-# """, height=1, width=1)
