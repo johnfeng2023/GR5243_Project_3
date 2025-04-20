@@ -5,7 +5,6 @@ import random
 
 # Show friendly-only bottom-right illustration
 import base64
-<<<<<<< HEAD
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -21,8 +20,6 @@ def append_to_google_sheet(row_dict):
     sheet = client.open("Experiment Results").worksheet("responses")
     sheet.append_row(list(row_dict.values()))
 
-=======
->>>>>>> ivy-update
 
 def get_image_base64(file_path):
     with open(file_path, "rb") as img_file:
@@ -33,7 +30,6 @@ def get_image_base64(file_path):
 # Page config
 st.set_page_config(page_title="Quiz", layout="centered")
 
-<<<<<<< HEAD
 import streamlit.components.v1 as components
 
 components.html("""
@@ -52,8 +48,6 @@ components.html("""
 </script>
 """, height=0)
 
-=======
->>>>>>> ivy-update
 
 # Gradient background fallback with improved layout (for "Friendly")
 page_bg = """
@@ -175,7 +169,6 @@ if st.session_state.page == "welcome":
     if st.button("Start Quiz"):
         st.session_state.page = "quiz"
         st.session_state.start_time = time.time()
-<<<<<<< HEAD
         components.html(f"""
         <script>
         gtag('event', 'start_quiz', {{
@@ -183,8 +176,6 @@ if st.session_state.page == "welcome":
         }});
         </script>
         """, height=0)
-=======
->>>>>>> ivy-update
 
 
 # Quiz page
@@ -240,10 +231,6 @@ elif st.session_state.page == "quiz":
             key=f"explain_{i}"
         )
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ivy-update
     if st.button("Submit and Continue"):
         if answer == "-- Select an answer --" or (q.get("explain") and explanation.strip() == ""):
             st.warning("⚠️ Please complete the question before continuing.")
@@ -252,7 +239,6 @@ elif st.session_state.page == "quiz":
             if answer == q["answer"]:
                 st.session_state.correct_count += 1
 
-<<<<<<< HEAD
             # Google Analytics event tracking for quiz answer
             components.html(f"""
             <script>
@@ -264,18 +250,12 @@ elif st.session_state.page == "quiz":
             </script>
             """, height=0)
 
-=======
->>>>>>> ivy-update
             st.session_state.question_index += 1
             if st.session_state.question_index >= 15:
                 st.session_state.page = "transition"
 
             st.rerun()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ivy-update
     progress = (i + 1) / 15
     # Friendly 风格：用 emoji 气泡进度条
     if st.session_state.style == "A":
@@ -372,7 +352,6 @@ elif st.session_state.page == "likert":
             st.error('⚠️ Please select your response before continuing.')
         else:
             st.session_state.likert_responses.append((LIKERT_QUESTIONS[j], response))
-<<<<<<< HEAD
 
             components.html(f"""
                     <script>
@@ -385,10 +364,6 @@ elif st.session_state.page == "likert":
                     """, height=0)
 
             st.session_state.likert_index += 1
-=======
-            st.session_state.likert_index += 1
-
->>>>>>> ivy-update
             if st.session_state.likert_index >= len(LIKERT_QUESTIONS):
                 st.session_state.page = "result"
             st.rerun()
@@ -409,7 +384,6 @@ elif st.session_state.page == "result":
     st.balloons()
     st.success("🎉 Quiz Completed!")
 
-<<<<<<< HEAD
     from datetime import datetime
     import pandas as pd
 
@@ -449,5 +423,3 @@ elif st.session_state.page == "result":
 
 
 
-=======
->>>>>>> ivy-update
