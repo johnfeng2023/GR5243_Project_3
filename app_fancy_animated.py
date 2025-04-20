@@ -8,6 +8,8 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+st.set_page_config(page_title="Trivia Quiz", layout="centered")
+
 # Google Analytics setup
 components.html("""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
@@ -15,7 +17,6 @@ components.html("""
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-8QCB98258G');
   gtag('event', 'page_view', {
     page_title: 'Streamlit Quiz App',
@@ -35,9 +36,7 @@ def append_to_google_sheet(row_dict):
     sheet = client.open("Experiment Results").worksheet("responses")
     sheet.append_row(list(row_dict.values()))
 
-st.set_page_config(page_title="Trivia Quiz", layout="centered")
-
-# Background
+# Animated background
 page_bg_img = """
 <style>
 body {
@@ -59,7 +58,6 @@ if "assigned_group" not in st.session_state:
     st.session_state.answers = []
     st.session_state.correct_count = 0
     st.session_state.question_index = 0
-    st.session_state.start_time = time.time()
 
 greeting, framing = st.session_state.assigned_group
 
@@ -93,16 +91,16 @@ if st.session_state.page == "welcome":
         st.write("Please answer as thoughtfully and honestly as you can. We sincerely appreciate your participation.")
 
     if st.button("Start Quiz"):
-        st.session_state.page = "quiz"
-        st.session_state.start_time = time.time()
-        components.html("""
+        components.html(f"""
         <script>
-          gtag('event', 'start_quiz', {
-            event_category: 'engagement',
-            event_label: 'User clicked start'
-          });
+          gtag('event', 'start_quiz', {{
+            greeting: '{greeting}',
+            framing: '{framing}'
+          }});
         </script>
         """, height=0)
+        st.session_state.page = "quiz"
+        st.session_state.start_time = time.time()
 
 elif st.session_state.page == "quiz":
     i = st.session_state.question_index
@@ -114,13 +112,24 @@ elif st.session_state.page == "quiz":
         explanation = st.text_input("💬 Why do you think this is the right answer?", key=f"e{i}")
 
         if st.button("Submit and Continue"):
+            is_correct = user_answer == q["answer"]
             st.session_state.answers.append({
                 "question": q["question"],
                 "user_answer": user_answer,
-                "is_correct": user_answer == q["answer"],
+                "is_correct": is_correct,
                 "explanation": explanation
             })
-            if user_answer == q["answer"]:
+            components.html(f"""
+            <script>
+              gtag('event', 'submit_answer', {{
+                question_number: {i+1},
+                is_correct: {str(is_correct).lower()},
+                answer_text: '{user_answer}'
+              }});
+            </script>
+            """, height=0)
+
+            if is_correct:
                 st.session_state.correct_count += 1
 
             if i + 1 < len(TRICKY_QUESTIONS):
@@ -161,16 +170,12 @@ elif st.session_state.page == "feedback":
         components.html(f"""
         <script>
           gtag('event', 'submit_feedback', {{
-            event_category: 'feedback',
-            value: {duration},
-            event_label: 'Feedback Submitted'
+            total_correct: {st.session_state.correct_count},
+            duration_sec: {duration},
+            greeting: '{greeting}',
+            framing: '{framing}'
           }});
-
-          gtag('event', 'session_duration', {{
-            event_category: 'timing',
-            value: {duration},
-            event_label: 'Time on app (s)'
-          }});
+          gtag('event', 'quiz_complete');
         </script>
         """, height=0)
 
