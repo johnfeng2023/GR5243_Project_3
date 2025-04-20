@@ -10,7 +10,6 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-
 def append_to_google_sheet(row_dict):
     scope = [
         "https://spreadsheets.google.com/feeds",
@@ -153,10 +152,24 @@ elif st.session_state.page == "done":
     st.write("Thank you again for participating!")
 
 
-# Include Google Analytics tracking code
-with open("google_analytics.html", "r") as f:
-    html_code = f.read()
-    components.html(html_code, height=0)
+# Google Analytics tracking snippet (embed directly)
+components.html("""
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QCB98258G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8QCB98258G');
+
+  // Force a page_view to trigger realtime user count
+  gtag('event', 'page_view', {
+    page_title: 'Streamlit Quiz App',
+    page_path: window.location.pathname
+  });
+</script>
+""", height=1)
+
 
 # components.html("""
 # <!-- Google tag (gtag.js) -->
