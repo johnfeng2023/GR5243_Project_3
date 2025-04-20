@@ -5,6 +5,21 @@ import pandas as pd
 from datetime import datetime
 import streamlit.components.v1 as components
 import random
+import json
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+def append_to_google_sheet(row_dict):
+    scope = [
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    creds_json = json.loads(st.secrets["gspread"]["gcp_service_account"])
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
+    client = gspread.authorize(creds)
+    sheet = client.open("Experiment Results").worksheet("responses")
+    sheet.append_row(list(row_dict.values()))
+
 
 st.set_page_config(page_title="Trivia Quiz", layout="centered")
 
@@ -120,8 +135,12 @@ elif st.session_state.page == "feedback":
         for q, s in likert_scores.items():
             result[q] = s
 
-        df = pd.DataFrame([result])
-        df.to_csv("experiment_results.csv", mode="a", index=False, header=False)
+        # Oriignal method with csv saving on local
+        # df = pd.DataFrame([result])
+        # df.to_csv("experiment_results.csv", mode="a", index=False, header=False)
+
+        append_to_google_sheet(result)
+
         st.success("🎉 Thank you! Your responses have been saved.")
         st.balloons()
         st.session_state.page = "done"
