@@ -160,7 +160,7 @@ components.html("""
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-8QCB98258G');
+  gtag('config', 'G-86NPLV6WER');
 
   // Force a page_view to trigger realtime user count
   gtag('event', 'page_view', {
