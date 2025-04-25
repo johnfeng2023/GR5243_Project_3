@@ -3,9 +3,7 @@ A simple Streamlit app to run a 2×2 factorial A/B experiment testing how tone a
 
 Deployed website link: [https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app](https://johnfeng2023-gr5243-project-3-app-i4mcwt.streamlit.app)
 
-Experiement result: [https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4gfyfs5hP8S4Tf11Wx-z6Lg8Q/edit?usp=sharing)
-
-## 🧪 Research Overview
+## Research Overview
 
 - **Design**: 2×2 between-subjects A/B experiment
 - **Independent Variables**:
@@ -16,10 +14,33 @@ Experiement result: [https://docs.google.com/spreadsheets/d/1xZ_3Dcn3-rTXXSapFo4
   - Time taken to complete the quiz (engagement)
   - Likert-scale feedback (subjective experience)
 
-## 💻 Tech Stack
+## Tech Stack
 
 - [Streamlit](https://streamlit.io) for the frontend
 - Python for logic and data handling
 - Google Sheets API for storing participant results
 - Google Analtyics for tracking background event
 
+## How to Run the App
+
+1. Clone the Repository
+```
+git clone https://github.com/johnfeng2023/GR5243_Project_3.git
+cd GR5243_Project_3
+```
+
+2. Set Up Virtual Environment
+```
+python -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies
+```
+pip install -r requirements.txt
+```
+
+4. Run the Streamlit App
+```
+streamlit run app.py
+```
